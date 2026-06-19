@@ -1,30 +1,24 @@
-> **🎓 Trilha:** SQL Warehouse Serverless (Conta Free)
-> **Participante:** {{PARTICIPANT_NAME}}
-> **Progresso:** `[→] Setup` `[ ] Extracao` `[ ] Limpeza + ETL` `[ ] Concluido`
-
----
-
 ## 🧭 Bem-vindo a Trilha SQL Serverless
 
-Nesta trilha voce vai executar um mini pipeline de dados usando apenas **Databricks SQL Warehouse** em conta free:
+Nesta trilha você vai executar um mini pipeline de dados usando apenas **Databricks SQL Warehouse** em conta free:
 
 ```
 CSV no Volume Unity Catalog
    ↓
 [Bronze SQL] dados brutos + auditoria
    ↓
-[Silver SQL] limpeza e padronizacao
+[Silver SQL] limpeza e padronização
    ↓
-[Gold SQL] KPIs analiticos
+[Gold SQL] KPIs analíticos
 ```
 
 ---
 
-## ✅ Setup e Integracao (faca primeiro)
+## ✅ Setup e Integração (faça primeiro)
 
 ### 1. Criar SQL Warehouse serverless 2X-Small
 - [ ] Acesse seu workspace Databricks (conta free)
-- [ ] Va em **SQL Warehouses**
+- [ ] Vá em **SQL Warehouses**
 - [ ] Clique em **Create SQL Warehouse**
 - [ ] Configure:
   - **Type:** `Serverless`
@@ -33,10 +27,10 @@ CSV no Volume Unity Catalog
 - [ ] Inicie o warehouse e aguarde status **Running**
 
 ### 2. Integrar VS Code com Databricks SQL
-- [ ] No VS Code, confirme a extensao Databricks instalada
+- [ ] No VS Code, confirme a extensão Databricks instalada
 - [ ] Abra Command Palette: `Databricks: Add Connection`
 - [ ] Informe `DATABRICKS_HOST` e token pessoal
-- [ ] No seletor de compute da extensao, escolha o SQL Warehouse `Serverless 2X-Small`
+- [ ] No seletor de compute da extensão, escolha o SQL Warehouse `Serverless 2X-Small`
 
 ### 3. Preparar dados de entrada
 Execute no terminal do projeto:
@@ -46,13 +40,13 @@ make generate-data
 make upload-data
 ```
 
-Os arquivos serao enviados para:
+Os arquivos serão enviados para:
 - `dbfs:/Volumes/workspace/training_sql_serverless/raw_files/orders.csv`
 - `dbfs:/Volumes/workspace/training_sql_serverless/raw_files/customers.csv`
 
 ---
 
-## 🥉 Etapa 1 - Extracao SQL para Bronze
+## 🥉 Etapa 1 - Extração SQL para Bronze
 
 Abra `notebooks/01_sql_warehouse_serverless/01_sql_setup_and_extract.sql` e implemente os TODOs.
 
@@ -66,7 +60,7 @@ Objetivo desta etapa:
 ### 💡 Prompt Copilot sugerido
 
 > "Gere SQL para criar uma tabela bronze_orders_raw a partir de read_files no caminho dbfs:/Volumes/workspace/training_sql_serverless/raw_files/orders.csv, adicionando colunas _ingestion_timestamp e _source_file."
-
+   
 ### ▶️ Como avancar
 
 ```bash

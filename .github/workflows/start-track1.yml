@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       participant_name:
-        description: "Seu nome (ex: Joao Silva). Opcional - se nao informado, sera usado o owner do repositorio."
+        description: "Seu nome (ex: João Silva). Opcional - se não informado, será usado o owner do repositório."
         required: false
         type: string
   push:
@@ -39,7 +39,7 @@ jobs:
               { name: 't1-step-01',          color: 'fb8500', description: 'T1 Etapa 1: Setup + Bronze SQL' },
               { name: 't1-step-02',          color: 'fb8500', description: 'T1 Etapa 2: Silver ETL' },
               { name: 't1-step-03',          color: 'fb8500', description: 'T1 Etapa 3: Gold SQL' },
-              { name: 't1-step-04',          color: '0e8a16', description: 'T1 Concluido!' },
+              { name: 't1-step-04',          color: '0e8a16', description: 'T1 Concluído!' },
             ];
 
             for (const label of labelsToCreate) {
@@ -76,14 +76,14 @@ jobs:
             if (existingIssues.length > 0) {
               issueUrl = existingIssues[0].html_url;
               issueNumber = String(existingIssues[0].number);
-              console.log(`Issue ja existente: #${issueNumber} - ${issueUrl}`);
+              console.log(`Issue já existente: #${issueNumber} - ${issueUrl}`);
             } else {
               const stepContent = fs.readFileSync('.github/training/steps/track1/step-01.md', 'utf8');
               const body = [
                 `## Treinamento Databricks + Copilot: SQL Serverless Free`,
                 ``,
                 `**Participante:** @${participantName}`,
-                `**Trilha:** SQL Warehouse Serverless (2X-Small) - Extracao -> Limpeza -> ETL Gold (4 etapas)`,
+                `**Trilha:** SQL Warehouse Serverless (2X-Small) - Extração -> Limpeza -> ETL Gold (4 etapas)`,
                 `**Iniciado por:** @${context.actor}`,
                 ``,
                 `---`,
@@ -93,8 +93,8 @@ jobs:
                 `---`,
                 ``,
                 `<!-- PROGRESS_STATUS_START -->`,
-                `### Progresso da automacao`,
-                `Aguardando seu commit da etapa atual para liberar o proximo passo...`,
+                `### Progresso da automação`,
+                `Aguardando seu commit da etapa atual para liberar o próximo passo...`,
                 `<!-- PROGRESS_STATUS_END -->`,
               ].join('\n');
 
@@ -114,7 +114,7 @@ jobs:
             core.setOutput('issue_url', issueUrl);
             core.setOutput('issue_number', issueNumber);
 
-      - name: Remover botoes iniciais do README
+      - name: Remover botões iniciais do README
         run: |
           set -euo pipefail
 
@@ -174,13 +174,14 @@ jobs:
             mv README.md.tmp README.md
           fi
 
-      - name: Commit no README se houver mudanca
+      - name: Commit no README se houver mudanças
+        if: ${{ steps.bootstrap.outputs.issue_number }}
         env:
           ISSUE_NUMBER: ${{ steps.bootstrap.outputs.issue_number }}
         run: |
           set -euo pipefail
           if git diff --quiet README.md; then
-            echo "README sem alteracoes"
+            echo "README sem alterações"
             exit 0
           fi
 
@@ -194,6 +195,6 @@ jobs:
         run: |
           echo "## SQL Serverless Free iniciada" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Issue do exercicio:** ${{ steps.bootstrap.outputs.issue_url }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Issue do exercício:** ${{ steps.bootstrap.outputs.issue_url }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "README atualizado com o link da issue para acesso rapido ao handson." >> $GITHUB_STEP_SUMMARY
+          echo "README atualizado com o link da issue para acesso rápido ao hands-on." >> $GITHUB_STEP_SUMMARY

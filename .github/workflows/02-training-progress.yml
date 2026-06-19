@@ -66,22 +66,22 @@ jobs:
                 expectedFile: 'notebooks/01_sql_warehouse_serverless/01_sql_setup_and_extract',
                 nextStepFile: 'steps/track1/step-02.md',
                 nextLabel: 't1-step-02',
-                progressWaiting: 'Aguardando commit da Etapa 1 (Setup + Extracao) para liberar a Etapa 2.',
-                progressDone: 'Etapa 2 liberada: Extracao concluida. Siga para Limpeza + ETL (Silver).',
+                progressWaiting: 'Aguardando commit da Etapa 1 (Setup + Extração) para liberar a Etapa 2.',
+                progressDone: 'Etapa 2 liberada: Extração concluída. Siga para Limpeza + ETL (Silver).',
               },
               't1-step-02': {
                 expectedFile: 'notebooks/01_sql_warehouse_serverless/02_sql_cleaning_etl',
                 nextStepFile: 'steps/track1/step-03.md',
                 nextLabel: 't1-step-03',
                 progressWaiting: 'Aguardando commit da Etapa 2 (Limpeza + ETL) para liberar a Etapa 3.',
-                progressDone: 'Etapa 3 liberada: Limpeza + ETL concluida. Siga para Gold SQL e validacoes.',
+                progressDone: 'Etapa 3 liberada: Limpeza + ETL concluída. Siga para Gold SQL e validações finais.',
               },
               't1-step-03': {
                 expectedFile: 'notebooks/01_sql_warehouse_serverless/03_sql_gold_validation',
                 nextStepFile: 'steps/track1/step-04.md',
                 nextLabel: 't1-step-04',
-                progressWaiting: 'Aguardando commit da Etapa 3 (Gold SQL) para concluir o handson.',
-                progressDone: 'Hands-on concluido. Todos os steps da trilha foram finalizados.',
+                progressWaiting: 'Aguardando commit da Etapa 3 (Gold SQL) para concluir o hands-on.',
+                progressDone: 'Hands-on concluído. Todos os steps da trilha foram finalizados.',
                 done: true,
               },
             };
@@ -111,7 +111,7 @@ jobs:
             }
 
             if (currentStep === 't1-step-04') {
-              console.log('Issue ja marcada como concluida.');
+              console.log('Issue já marcada como concluída.');
               return;
             }
 
@@ -125,9 +125,9 @@ jobs:
 
             const matchesCurrentStep = changed.some(f => f.includes(stepConfig.expectedFile));
             if (!matchesCurrentStep) {
-              const waitingBody = setProgressStatus(issue.body || '', stepConfig.progressWaiting);
+              const waitingBody = setProgressStatus(issue.body || '', stepConfig.progressWaiting);  
               await updateIssueBody(issue.number, waitingBody);
-              console.log('Commit nao corresponde ao arquivo esperado da etapa atual.');
+              console.log('Commit não corresponde ao arquivo esperado da etapa atual.');
               return;
             }
 
@@ -175,7 +175,7 @@ jobs:
                 owner: context.repo.owner, repo: context.repo.repo,
                 issue_number: issue.number, state: 'closed', state_reason: 'completed',
               });
-              console.log('Treinamento concluido! Issue #' + issue.number + ' fechada.');
+              console.log('Treinamento concluído! Issue #' + issue.number + ' fechada.');
             }
 
       - name: Resumo
