@@ -1,0 +1,87 @@
+-- Databricks notebook source
+-- MAGIC %md
+-- MAGIC # 01 - Setup e Extracao (Bronze SQL)
+-- MAGIC
+-- MAGIC **Objetivo:** usar SQL Warehouse Serverless (2X-Small) para ler CSVs no Volume Unity Catalog e criar tabelas Bronze.
+
+
+-- Copilot: No arquivo 01_sql_setup_and_extract.sql, crie o schema "training_sql_serverless" atentando para validar se ele não existe antes. 
+-- Em seguida, crie um volume de entrada para os arquivos CSV dentro do schema criado sendo definido como "workspace.training_sql_serverless.raw_files". 
+-- Por fim, crie duas tabelas Bronze usando a função `read_files` como sugestão use "bronze_orders_raw" e "bronze_customers_raw" para ler os arquivos CSV de pedidos e clientes, 
+-- incluindo colunas de metadados para timestamp de ingestão e nome do arquivo de origem (_ingestion_timestamp e _source_file).
+-- COMMAND ----------
+
+-- 1) Criar schema da trilha
+CREATE SCHEMA IF NOT EXISTS training_sql_serverless;
+USE training_sql_serverless;
+
+-- COMMAND ----------
+
+-- 1.1) Criar volume de entrada para os arquivos CSV
+CREATE VOLUME IF NOT EXISTS workspace.training_sql_serverless.raw_files;
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC ## Extracao de pedidos (Bronze)
+
+-- COMMAND ----------
+
+CREATE OR REPLACE TABLE bronze_orders_raw AS
+SELECT
+  order_id,
+  customer_id,
+  product_category,
+  product_name,
+  quantity,
+  unit_price,
+  order_date,
+  region,
+  status,
+  current_timestamp() AS _ingestion_timestamp,
+  input_file_name() AS _source_file
+FROM read_files(
+  'dbfs:/Volumes/workspace/training_sql_serverless/raw_files/orders.csv',
+  format => 'csv',
+  header => true,
+  inferSchema => true
+);
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC ## Extracao de clientes (Bronze)
+
+-- COMMAND ----------
+
+CREATE OR REPLACE TABLE bronze_customers_raw AS
+SELECT
+  customer_id,
+  name,
+  email,
+  city,
+  signup_date,
+  current_timestamp() AS _ingestion_timestamp,
+  'dbfs:/Volumes/workspace/training_sql_serverless/raw_files/customers.csv' AS _source_file
+FROM read_files(
+  'dbfs:/Volumes/workspace/training_sql_serverless/raw_files/customers.csv',
+  format => 'csv',
+  header => true,
+  inferSchema => true
+);
+
+-- COMMAND ----------
+
+-- 2) Validacoes basicas
+SELECT 'bronze_orders_raw' AS table_name, COUNT(*) AS row_count FROM bronze_orders_raw
+UNION ALL
+SELECT 'bronze_customers_raw' AS table_name, COUNT(*) AS row_count FROM bronze_customers_raw;
+
+-- COMMAND ----------
+
+-- 3) Amostra dos dados
+SELECT * FROM bronze_orders_raw LIMIT 20;
+
+-- COMMAND ----------
+
+SELECT * FROM bronze_customers_raw LIMIT 20;
