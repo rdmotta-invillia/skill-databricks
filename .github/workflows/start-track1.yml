@@ -124,14 +124,7 @@ jobs:
           with open('README.md', 'r', encoding='utf-8') as f:
               content = f.read()
 
-          # Remove o bloco <p>...</p> que contém Codespace e Iniciar Trilha
-          content = re.sub(
-              r'<p>\s*<a href="https://codespaces\.new/.*?</p>',
-              '',
-              content,
-              flags=re.DOTALL
-          )
-
+ 
           # Remove o badge de "Copiar Exercício"
           content = re.sub(
               r'\[!\[\]\(.*?Copiar.*?Exerc.*?\)\]\(.*?template_owner.*?\)\s*\n?',
@@ -160,7 +153,7 @@ jobs:
               BEGIN { inblock=0 }
               /<!-- TRAINING_ISSUE_LINK_START -->/ {
                 print;
-                print "[![](https://img.shields.io/badge/Acessar%20Issue%20do%20Exercicio-Open-1f883d?style=for-the-badge&logo=github)](" url ")";
+                print "[![](https://img.shields.io/badge/Acessar%20Issue%20do%20Exercício-Open-1f883d?style=for-the-badge&logo=github)](" url ")";
                 inblock=1;
                 next;
               }

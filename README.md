@@ -48,21 +48,9 @@ databricks-treinner/
 ### 🧪 SQL Warehouse Serverless (Conta Free)
 > Execute um ETL completo usando apenas SQL Warehouse serverless 2X-Small.
 
-<p>
-  <a href="https://codespaces.new/rdmotta-invillia/skill-databricks?quickstart=1">
-    <img src="https://github.com/codespaces/badge.svg" alt="Abrir Codespace"/>
-  </a>
-  &nbsp;
-  <a href="https://github.com/rdmotta-invillia/skill-databricks/actions/workflows/start-track1.yml">
-    <img src="https://img.shields.io/badge/Iniciar_Trilha-SQL_Serverless_Free-fb8500?style=for-the-badge" alt="Iniciar Trilha 4"/>
-  </a>
-</p>
-
-
 [![](https://img.shields.io/badge/Copiar%20Exercício-%E2%86%92-1f883d?style=for-the-badge&logo=github&labelColor=197935)](https://github.com/new?template_owner=rdmotta-invillia&template_name=skill-databricks&owner=%40me&name=skill-databricks-with-copilot&visibility=public)
 
-<!-- TRAINING_ISSUE_LINK_START -->
-[![](https://img.shields.io/badge/Acessar%20Issue%20do%20Exercicio-Open-1f883d?style=for-the-badge&logo=github)](https://github.com/rdmotta-invillia/skill-databricks/issues/1)
+<!-- TRAINING_ISSUE_LINK_START --> 
 <!-- TRAINING_ISSUE_LINK_END -->
 ---  
 
