@@ -7,14 +7,28 @@ bundle:
 
 resources:
   jobs:
+    bronze_sql_workflow:
+      name: bronze-sql-workflow-${bundle.target}
+      tasks:
+        - task_key: run_bronze_sql
+          notebook_task:
+            notebook_path: ${workspace.file_path}/notebooks/01_sql_warehouse_serverless/01_sql_setup_and_extract
+          sql_warehouse_id: ${env.DATABRICKS_WAREHOUSE_ID}
+
     silver_sql_workflow:
       name: silver-sql-workflow-${bundle.target}
       tasks:
         - task_key: run_silver_etl_sql
           notebook_task:
-            notebook_path: ${workspace.file_path}/notebooks/01_sql_warehouse_serverless/02_sql_cleaning_etl.sql
+            notebook_path: ${workspace.file_path}/notebooks/01_sql_warehouse_serverless/02_sql_cleaning_etl
           sql_warehouse_id: ${env.DATABRICKS_WAREHOUSE_ID}
-
+    gold_sql_workflow:
+      name: gold-sql-workflow-${bundle.target}
+      tasks:
+        - task_key: run_gold_etl_sql
+          notebook_task:
+            notebook_path: ${workspace.file_path}/notebooks/01_sql_warehouse_serverless/03_sql_gold_validation
+          sql_warehouse_id: ${env.DATABRICKS_WAREHOUSE_ID}
 targets:
   dev:
     mode: development
@@ -23,8 +37,3 @@ targets:
       host: https://dbc-db832d9c-35e1.cloud.databricks.com
       root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
 
-  ## Optionally, there could be 'staging' or 'prod' targets here.
-  #
-  # prod:
-  #   workspace:
-  #     host: https://dbc-db832d9c-35e1.cloud.databricks.com
