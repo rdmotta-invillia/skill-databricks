@@ -1,3 +1,5 @@
+-- Databricks notebook source
+
 -- Sugestão de prompt
 
 -- MAGIC %md

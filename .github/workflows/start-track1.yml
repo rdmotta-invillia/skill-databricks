@@ -82,11 +82,6 @@ jobs:
               const body = [
                 `## Treinamento Databricks + Copilot: SQL Serverless Free`,
                 ``,
-                `**Participante:** @${participantName}`,
-                `**Trilha:** SQL Warehouse Serverless (2X-Small) - Extração -> Limpeza -> ETL Gold (4 etapas)`,
-                `**Iniciado por:** @${context.actor}`,
-                ``,
-                `---`,
                 ``,
                 stepContent,
                 ``,
