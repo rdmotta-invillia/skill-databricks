@@ -91,14 +91,15 @@ Se preferir rodar localmente em vez do Codespaces:
 ## Como Usar Este Repositório
 
 ### Via Codespaces (Recomendado)
-1. Abra o repositório no GitHub Codespaces (botão acima)
-2. Configure os secrets `DATABRICKS_HOST`, `DATABRICKS_TOKEN` e `DATABRICKS_CLUSTER_ID`
-3. O ambiente será configurado automaticamente
-4. Execute `make generate-data && make upload-data` para preparar os dados
-5. Siga o treinamento guiado pela Issue criada pelo workflow `start-track1`
 
-### Via Instalação Local
-1. Siga o [Guia de Setup](docs/01_setup_guide.md) para configurar seu ambiente
+1. Configure os secrets `DATABRICKS_HOST`, `DATABRICKS_TOKEN` e `DATABRICKS_CLUSTER_ID` antes de abrir no GitHub Codespaces
+2. Abra o repositório no GitHub Codespaces (botão acima)
+3. O ambiente será configurado automaticamente
+4. Ative a conexão com o ambiente Databricks
+5. As ações `make generate-data && make upload-data` são geradas automáticamente para preparar os dados
+5. Siga o treinamento guiado pela Issue criada pelo workflow.
+
+### Via Instalação Local 
 2. Copie `.env.example` para `.env` e preencha com suas credenciais
 3. Execute `make setup && make generate-data`
 4. Importe os notebooks na ordem indicada pelos módulos

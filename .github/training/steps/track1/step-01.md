@@ -14,7 +14,7 @@ CSV no Volume Unity Catalog
 
 ---
 
-## ✅ Setup e Integração (faça primeiro)
+## Setup e Integração (faça primeiro)
 
 ### 1. Criar SQL Warehouse serverless 2X-Small
 - [ ] Acesse seu workspace Databricks (conta free)
@@ -30,7 +30,7 @@ CSV no Volume Unity Catalog
 - [ ] No VS Code, confirme a extensão Databricks instalada
 - [ ] Abra Command Palette: `Databricks: Add Connection`
 - [ ] Informe `DATABRICKS_HOST` e token pessoal
-- [ ] No seletor de compute da extensão, escolha o SQL Warehouse `Serverless 2X-Small`
+- [ ] No seletor de compute da extensão, escolha o SQL Warehouse `Serverless`
 
 ### 3. Preparar dados de entrada
 Execute no terminal do projeto:
@@ -51,22 +51,26 @@ Os arquivos serão enviados para:
 Abra `notebooks/01_sql_warehouse_serverless/01_sql_setup_and_extract.sql` e implemente os TODOs.
 
 Objetivo desta etapa:
-- [ ] Criar schema SQL da trilha
-- [ ] Criar o Volume Unity Catalog para os arquivos de entrada
-- [ ] Ler CSVs do Volume com `read_files`
-- [ ] Criar tabelas Bronze com colunas de auditoria
+- [V] Criar schema SQL da trilha
+- [V] Criar o Volume Unity Catalog para os arquivos de entrada
+- [V] Ler CSVs do Volume com `read_files`
+- [V] Criar tabelas Bronze com colunas de auditoria
 - [ ] Validar contagem de registros
+- [ ] Reconciliação de volume (origem x bronze)
+  - **Objetivo:** garantir que a carga trouxe o mesmo número de linhas esperado da origem.
+- [ ] Chaves obrigatórias e duplicidade
+  - **Objetivo:** validar qualidade de chave nas tabelas Bronze.
+- [ ] Validação de domínio de status
+  - **Objetivo:** identificar valores inválidos de status em pedidos.
+- [ ] Qualidade temporal de order_date
+  - **Objetivo:** garantir coerência em datas de pedidos.
+- [ ] Integridade referencial (pedido sem cliente)
+  - **Objetivo:** encontrar pedidos com customer_id inexistente na base de clientes.
 
-### 💡 Prompt Copilot sugerido
-
-> "Gere SQL para criar uma tabela bronze_orders_raw a partir de read_files no caminho dbfs:/Volumes/workspace/training_sql_serverless/raw_files/orders.csv, adicionando colunas _ingestion_timestamp e _source_file."
-   
-### ▶️ Como avancar
+### Como avancar
 
 ```bash
-git add notebooks/01_sql_warehouse_serverless/01_sql_setup_and_extract.sql
-git commit -m "feat: track1 etapa 1 - extracao bronze sql"
+git add .
+git commit -m "feat: track1 etapa 1 - extração bronze sql"
 git push origin main
-```
-
-> ⚡ O Actions vai postar a etapa de **Limpeza + ETL (Silver)**.
+``` 
